@@ -1,6 +1,0 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
-<EditText android:id="@+id/subjectCode" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Mã môn học" android:inputType="text" android:maxLength="200"/>
-<EditText android:id="@+id/subjectName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Tên môn học" android:inputType="text" android:maxLength="200"/>
-<EditText android:id="@+id/description" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Mô tả" android:inputType="textMultiLine" android:maxLength="2000"/>
-<EditText android:id="@+id/credits" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Số tín chỉ (1–30)" android:inputType="number" android:maxLength="200"/>
-</LinearLayout></ScrollView>
