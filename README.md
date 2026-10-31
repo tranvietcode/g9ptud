@@ -1,59 +1,44 @@
-# Ứng dụng quản lý và đặt lịch học sinh viên
+# Phần người 2 — Chức năng Admin
 
-Bài thực hành nhóm môn Phát triển ứng dụng di động — Nhóm 9.
+Java + SQLite, package `com.example.studentmanager`. Bản demo độc lập để chạy và bàn giao hai module Admin; không phải toàn bộ ứng dụng đặt lịch của nhóm.
 
-Ứng dụng Android hỗ trợ quản lý sinh viên, môn học và đặt lịch học cá nhân, phân quyền theo hai vai trò **Admin** và **Student**.
+## 1. Mở và chạy
 
-## Công nghệ
+1. Giải nén và mở thư mục `Admin_Management_Java_SQLite` bằng Android Studio (Open).
+2. Chọn Gradle JDK 17 hoặc JDK đi kèm tương thích AGP 8.7.3; cài Android SDK Platform 35 khi được yêu cầu. Gradle wrapper 8.9 đã kèm.
+3. Sync Gradle, chạy trên máy ảo hoặc điện thoại Android 8.0/API 26 trở lên.
+4. Đăng nhập: `admin` / `Admin@123`.
+5. Chọn Quản lý sinh viên hoặc Quản lý môn học. Bấm một dòng để chọn Xem chi tiết, Sửa, Xóa.
+6. Ô tìm kiếm: nhập từ khóa rồi bấm Tìm kiếm; để trống rồi tìm để xem toàn bộ.
 
-- Ngôn ngữ: Java.
-- Giao diện: XML.
-- Cơ sở dữ liệu: SQLite, sử dụng `SQLiteOpenHelper`.
-- Môi trường phát triển: Android Studio.
-- Quản lý mã nguồn: Git và GitHub.
-- Lưu phiên đăng nhập: SharedPreferences.
+Cần Internet lần đầu để Android Studio tải dependency. Không có APK kèm theo: môi trường tạo mã chưa có Android SDK để build/chạy Android.
 
-## Chức năng theo yêu cầu
+## 2. Phạm vi đã làm
 
-### Admin
+- Sinh viên: danh sách, chi tiết, thêm, sửa, xóa, tìm theo mã/họ tên/email/điện thoại.
+- Khi thêm sinh viên: tạo Account vai trò Student và Student liên kết bằng accountId trong một transaction; lỗi ở một bước rollback cả hai.
+- Khi sửa: đổi được username; mật khẩu để trống giữ nguyên, nhập mới phải ít nhất 6 ký tự.
+- Chặn trùng mã sinh viên, mã môn và username không phân biệt hoa thường bằng ràng buộc SQLite.
+- Kiểm tra email, điện thoại, dữ liệu bắt buộc; tín chỉ là số nguyên 1–30 (quy tắc demo, nhóm có thể điều chỉnh).
+- Môn học: danh sách, chi tiết, thêm, sửa, xóa, tìm theo mã/tên/mô tả.
+- Môn đã được StudySchedule tham chiếu không được xóa. Xóa sinh viên sẽ xóa tài khoản và các lịch liên quan, có hộp thoại cảnh báo.
+- Xác minh Admin từ Account trong SQLite; không chỉ tin trường role trong SharedPreferences.
+- Ghi dữ liệu và băm mật khẩu chạy trên luồng nền; truy vấn có tham số.
 
-- Đăng nhập và đăng xuất.
-- Xem, thêm, sửa, xóa và tìm kiếm sinh viên.
-- Tạo tài khoản liên kết với hồ sơ sinh viên.
-- Xem, thêm, sửa, xóa và tìm kiếm môn học.
+## 3. Tệp bạn phụ trách
 
-### Student
+`app/src/main/java/com/example/studentmanager/activities/StudentActivity.java`
 
-- Đăng nhập và đăng xuất.
-- Xem và tìm kiếm lịch học cá nhân.
-- Đặt lịch bằng cách chọn môn học, ngày, giờ bắt đầu, giờ kết thúc và địa điểm.
-- Chỉnh sửa và xóa lịch học.
-- Kiểm tra và ngăn đặt lịch trùng giờ.
-- Quản lý trạng thái: `Pending`, `Confirmed`, `Cancelled`.
-- Xem lịch học theo ngày.
-- Nhận thông báo buổi học sắp tới và thay đổi lịch.
+`app/src/main/java/com/example/studentmanager/activities/SubjectActivity.java`
 
-## Cơ sở dữ liệu
+`app/src/main/res/layout/activity_student.xml`
 
-| Bảng | Các trường |
-|---|---|
-| Account | id, username, password, role |
-| Student | id, studentCode, fullname, email, phone, accountId |
-| Subject | id, subjectCode, subjectName, description, credits |
-| StudySchedule | id, studentId, subjectId, studyDate, startTime, endTime, location, status |
+`app/src/main/res/layout/dialog_student.xml`
 
-Dữ liệu được lưu cục bộ trên từng thiết bị bằng SQLite. Các thiết bị không tự đồng bộ dữ liệu với nhau.
+`app/src/main/res/layout/activity_subject.xml`
 
-SharedPreferences lưu thông tin phiên đăng nhập; dữ liệu nghiệp vụ được lưu trong SQLite.
+`app/src/main/res/layout/dialog_subject.xml`
 
-## Cấu trúc mã nguồn
+`AdminActivity.java` là lớp dùng chung cho hai màn hình. DBHelper, model, MainActivity và LoginActivity là mã tham chiếu giúp chạy thử và thống nhất cách ghép với trưởng nhóm.
 
-Package gốc của project nền tảng: `com.example.test3`.
-
-| Thư mục / File | Trách nhiệm |
-|---|---|
-| `activities/` | Các màn hình đăng nhập, quản lý và đặt lịch |
-| `dal/DBHelper.java` | Tạo database và thực hiện truy vấn SQLite |
-| `models/Account.java` | Model tài khoản |
-| `models/Student.java` | Model sinh viên |
-| `
+Đọc `docs/GHEP_CODE.md` trước khi đưa vào project của nhóm; không chép đè DBHelper đang có.
