@@ -18,7 +18,7 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "ScheduleManagement.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -79,44 +79,61 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     private void seedData(SQLiteDatabase db) {
-        // 1. Admin Account
+        // 1. Admin Accounts
         ContentValues adminAcc = new ContentValues();
         adminAcc.put("username", "admin");
-        adminAcc.put("password", "admin123");
+        adminAcc.put("password", "123456");
         adminAcc.put("role", Constants.ROLE_ADMIN);
         db.insert("Account", null, adminAcc);
 
-        // 2. Student Account & Profile
-        ContentValues studentAcc = new ContentValues();
-        studentAcc.put("username", "student01");
-        studentAcc.put("password", "student123");
-        studentAcc.put("role", Constants.ROLE_STUDENT);
-        long studentAccId = db.insert("Account", null, studentAcc);
+        // 2. Student Account 1 (student1 / 123456)
+        ContentValues studentAcc1 = new ContentValues();
+        studentAcc1.put("username", "student1");
+        studentAcc1.put("password", "123456");
+        studentAcc1.put("role", Constants.ROLE_STUDENT);
+        long studentAccId1 = db.insert("Account", null, studentAcc1);
 
-        if (studentAccId != -1) {
-            ContentValues studentProfile = new ContentValues();
-            studentProfile.put("studentCode", "SV001");
-            studentProfile.put("fullname", "Nguyễn Văn A");
-            studentProfile.put("email", "sv001@example.com");
-            studentProfile.put("phone", "0912345678");
-            studentProfile.put("accountId", studentAccId);
-            db.insert("Student", null, studentProfile);
+        if (studentAccId1 != -1) {
+            ContentValues studentProfile1 = new ContentValues();
+            studentProfile1.put("studentCode", "SV001");
+            studentProfile1.put("fullname", "Nguyễn Văn A");
+            studentProfile1.put("email", "sv001@example.com");
+            studentProfile1.put("phone", "0912345678");
+            studentProfile1.put("accountId", studentAccId1);
+            db.insert("Student", null, studentProfile1);
         }
 
-        // 3. Sample Subjects
+        // 3. Student Account 2 (student01 / student123)
+        ContentValues studentAcc2 = new ContentValues();
+        studentAcc2.put("username", "student01");
+        studentAcc2.put("password", "student123");
+        studentAcc2.put("role", Constants.ROLE_STUDENT);
+        long studentAccId2 = db.insert("Account", null, studentAcc2);
+
+        if (studentAccId2 != -1) {
+            ContentValues studentProfile2 = new ContentValues();
+            studentProfile2.put("studentCode", "SV002");
+            studentProfile2.put("fullname", "Trần Thị B");
+            studentProfile2.put("email", "sv002@example.com");
+            studentProfile2.put("phone", "0987654321");
+            studentProfile2.put("accountId", studentAccId2);
+            db.insert("Student", null, studentProfile2);
+        }
+
+        // 4. Sample Subjects
         ContentValues sub1 = new ContentValues();
         sub1.put("subjectCode", "SUB001");
         sub1.put("subjectName", "Lập trình Android");
         sub1.put("description", "Lập trình ứng dụng di động Android với Java");
         sub1.put("credits", 3);
-        db.insert("Subject", null, sub1);
+        long subId1 = db.insert("Subject", null, sub1);
 
         ContentValues sub2 = new ContentValues();
         sub2.put("subjectCode", "SUB002");
         sub2.put("subjectName", "Cơ sở dữ liệu");
         sub2.put("description", "Thiết kế và quản trị CSDL SQLite");
         sub2.put("credits", 3);
-        db.insert("Subject", null, sub2);
+        long subId2 = db.insert("Subject", null, sub2);
 
         ContentValues sub3 = new ContentValues();
         sub3.put("subjectCode", "SUB003");
@@ -124,6 +141,31 @@ public class DBHelper extends SQLiteOpenHelper {
         sub3.put("description", "Kiến thức mạng máy tính cơ bản");
         sub3.put("credits", 2);
         db.insert("Subject", null, sub3);
+
+        // 5. Sample StudySchedules for Student 1
+        if (studentAccId1 != -1 && subId1 != -1) {
+            ContentValues sch1 = new ContentValues();
+            sch1.put("studentId", 1);
+            sch1.put("subjectId", subId1);
+            sch1.put("studyDate", "2025-03-20");
+            sch1.put("startTime", "07:30");
+            sch1.put("endTime", "09:50");
+            sch1.put("location", "Phòng 201");
+            sch1.put("status", "Confirmed");
+            db.insert("StudySchedule", null, sch1);
+        }
+
+        if (studentAccId1 != -1 && subId2 != -1) {
+            ContentValues sch2 = new ContentValues();
+            sch2.put("studentId", 1);
+            sch2.put("subjectId", subId2);
+            sch2.put("studyDate", "2025-03-20");
+            sch2.put("startTime", "10:00");
+            sch2.put("endTime", "12:15");
+            sch2.put("location", "Phòng 305");
+            sch2.put("status", "Pending");
+            db.insert("StudySchedule", null, sch2);
+        }
     }
 
     @Override

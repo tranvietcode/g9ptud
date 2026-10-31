@@ -3,30 +3,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:gravity="center">
+    android:padding="12dp">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:gravity="center"
         android:text="QUẢN LÝ MÔN HỌC"
+        android:textColor="@android:color/black"
         android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginBottom="16dp" />
+        android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnAddSubject"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="(Màn hình khung dành cho Người 2 triển khai)"
-        android:textSize="16sp"
-        android:textColor="#757575"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginBottom="8dp"
+        android:text="+ Thêm Môn Học Mới" />
+
+    <EditText
+        android:id="@+id/etSearchSubject"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:drawable/editbox_background"
+        android:hint="Tìm theo Mã môn, Tên môn..."
+        android:paddingHorizontal="12dp"
+        android:textSize="14sp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSubjects"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tvEmptySubject"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Chưa có môn học nào trong danh sách!"
+            android:textColor="#757575"
+            android:textSize="15sp"
+            android:visibility="gone" />
+    </FrameLayout>
 
     <Button
         android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Quay lại" />
 
 </LinearLayout>
