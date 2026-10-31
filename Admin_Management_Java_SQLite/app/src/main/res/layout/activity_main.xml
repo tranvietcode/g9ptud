@@ -1,0 +1,6 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center_vertical" android:padding="24dp">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Chức năng Admin" android:textSize="26sp" android:textStyle="bold"/>
+<Button android:id="@+id/btnStudents" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Quản lý sinh viên"/>
+<Button android:id="@+id/btnSubjects" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Quản lý môn học"/>
+<Button android:id="@+id/btnLogout" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Đăng xuất"/>
+</LinearLayout>
