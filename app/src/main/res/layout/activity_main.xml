@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Welcome Banner -->
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Xin chào"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvRoleInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vai trò: -"
+            android:textSize="14sp"
+            android:textColor="#555555"
+            android:layout_marginBottom="24dp" />
+
+        <!-- ADMIN Options Container -->
+        <LinearLayout
+            android:id="@+id/layoutAdminOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CHỨC NĂNG QUẢN TRỊ"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnManageStudents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quản lý Sinh viên"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnManageSubjects"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quản lý Môn học"
+                android:layout_marginBottom="20dp" />
+
+        </LinearLayout>
+
+        <!-- STUDENT Options Container -->
+        <LinearLayout
+            android:id="@+id/layoutStudentOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CHỨC NĂNG SINH VIÊN"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnAddSchedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đặt lịch học"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnViewSchedules"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Xem lịch cá nhân"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnViewCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Xem lịch theo ngày"
+                android:layout_marginBottom="20dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ĐĂNG XUẤT"
+            android:backgroundTint="#D32F2F"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+</ScrollView>
